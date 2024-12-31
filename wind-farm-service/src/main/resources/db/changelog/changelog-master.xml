@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.14.xsd">
+
+    <changeSet id="1" author="kacper9800">
+        <createTable tableName="wind_farm">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="capacity_mw" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="timezone" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="location" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="electricity_production">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="wind_farm_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="timestamp" type="timestamp with time zone">
+                <constraints nullable="false"/>
+            </column>
+            <column name="electricity_produced_mw" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="electricity_production"
+                                 baseColumnNames="wind_farm_id"
+                                 constraintName="electricity_production_wind_farm_id"
+                                 referencedTableName="wind_farm"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+</databaseChangeLog>
