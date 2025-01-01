@@ -1,0 +1,10 @@
+<p-tabView [activeIndex]="0" (onChange)="onTabChange($event)">
+    <p-tabPanel header="Table">
+        <app-wind-farm-tab-table [windFarms]="windFarms"></app-wind-farm-tab-table>
+    </p-tabPanel>
+    <p-tabPanel header="Map">
+        <ng-container *ngIf="mapTabLoaded">
+            <app-wind-farm-tab-map [windFarms]="windFarms"></app-wind-farm-tab-map>
+        </ng-container>
+    </p-tabPanel>
+</p-tabView>

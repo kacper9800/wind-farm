@@ -1,0 +1,15 @@
+.tree-node {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 8px;
+}
+
+.tree-node-expanded {
+    margin-left: 32px;
+}
+
+.expand-icon {
+    margin-right: 8px;
+    font-size: 20px;
+}

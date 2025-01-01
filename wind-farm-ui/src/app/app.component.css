@@ -1,0 +1,72 @@
+/* Resetowanie marginesów i paddingów */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+}
+
+/* Kontener główny */
+.app-container {
+    display: flex;
+    flex-direction: column;
+    /*height: 100vh;*/
+}
+
+/* Nagłówek */
+.app-header {
+    background-color: #36a1b0;
+    color: white;
+    padding: 30px;
+    text-align: left;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.header-content {
+    display: flex;
+    align-content: baseline;
+    justify-content: space-between;
+}
+
+
+.header-content h1 {
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.header-content p-button {
+    margin-right: 10px;
+}
+
+/* Layout (Content + Sidebar) */
+.main-layout {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+/* Content Styles */
+.app-content {
+    padding: 20px;
+    flex: 1;
+    background-color: white;
+    overflow-y: auto;
+}
+
+/* Nagłówki i treść w sekcji Content */
+.app-content h2 {
+    font-size: 30px;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.app-content p {
+    font-size: 18px;
+    color: #333;
+    line-height: 1.8;
+}
