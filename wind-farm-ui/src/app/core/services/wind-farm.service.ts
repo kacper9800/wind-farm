@@ -23,7 +23,8 @@ export class WindFarmService {
 
   // Create a new wind farm
   createWindFarm(data: any): Observable<any> {
-    return this.http.post<any>(this.baseUrl, data);
+    const url = `${this.baseUrl}${urls.windFarm}`;
+    return this.http.post<any>(url, data);
   }
 
   // Update an existing wind farm

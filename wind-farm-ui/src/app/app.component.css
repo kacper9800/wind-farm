@@ -70,3 +70,20 @@ html, body {
     color: #333;
     line-height: 1.8;
 }
+
+nav {
+    display: flex;
+    justify-content: center;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 15px 20px;
+    display: block;
+}
+
+nav a:hover {
+    background-color: #f1f5f9;
+    color: black;
+}

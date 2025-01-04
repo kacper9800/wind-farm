@@ -4,7 +4,7 @@ import { routes } from './app.routes';
 import { provideHttpClient} from "@angular/common/http";
 import {provideAnimationsAsync} from "@angular/platform-browser/animations/async";
 import {providePrimeNG} from "primeng/config";
-import Lara from '@primeng/themes/lara';
+import Material from '@primeng/themes/material';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }),
@@ -12,9 +12,14 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     providePrimeNG({
       theme: {
-        preset: Lara,
+        preset: Material,
         options: {
-          dark: false,
+          prefix: 'p',
+          darkModeSelector: 'system',
+          cssLayer: {
+            name: 'primeng',
+            order: 'app-styles, primeng, another-css-library'
+          },
         },
       }
     }),

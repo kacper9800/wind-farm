@@ -6,6 +6,7 @@ import {CommonModule} from "@angular/common";
 import {WindFarmTabMapComponent} from "../wind-farm-tab-map/wind-farm-tab-map.component";
 import {WindFarmTabTableComponent} from "../wind-farm-tab-table/wind-farm-tab-table.component";
 import {TabPanel, TabView} from "primeng/tabview";
+import {Drawer} from "primeng/drawer";
 
 @Component({
     selector: 'app-wind-farm',
@@ -25,6 +26,7 @@ export class WindFarmComponent implements OnInit {
     windFarms: WindFarm[] = [];
     activeTab: number = 0;
     mapTabLoaded = false;
+    visible= true;
 
     ngOnInit(): void {
         this.loadInitialData();

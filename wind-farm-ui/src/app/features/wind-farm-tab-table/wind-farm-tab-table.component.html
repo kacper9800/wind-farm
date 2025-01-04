@@ -1,23 +1,134 @@
-<p-table [tableStyle]="{ 'min-width': '80rem' }" [value]="windFarms"
-         dataKey="id" selectionMode="single">
+<p-button type="button" icon="pi pi-plus" (click)="openWindFarmCreateDialog()" label="Add New Wind Farm"></p-button>
+<p-table [value]="windFarms" sortField="windFarm.id" sortMode="single" dataKey="id" stripedRows
+         rowGroupMode="subheader" groupRowsBy="id" [tableStyle]="{'min-width': '70rem'}">
     <ng-template #header>
         <tr>
-            <th>Description</th>
-            <th>Timezone</th>
-            <th>Capacity MW</th>
-            <th>Actions</th>
+            <th style="width:25%">Description</th>
+            <th style="width:25%">Capacity</th>
+            <th style="width:25%">Location</th>
+            <th style="width:25%"></th>
         </tr>
     </ng-template>
-    <ng-template #body let-windFarm>
-        <tr [pSelectableRow]="windFarm">
-            <td>{{ windFarm.description }}</td>
-            <td>{{ windFarm.timezone }}</td>
-            <td>{{ windFarm.capacityMW }}</td>
+    <ng-template #groupheader let-windFarm let-rowIndex="rowIndex" let-expanded="expanded">
+        <tr>
             <td>
-                <p-button severity="secondary" (onClick)="openElectricityProductionDialog(windFarm.id)">
-                    Open Electricity Production Dialog
-                </p-button>
+                {{ windFarm.description }}
+            </td>
+            <td>
+                <p-tag [value]="windFarm.capacityMW + ' MW'" [severity]="'warn'"/>
+            </td>
+            <td>
+                {{ windFarm.location }}
+            </td>
+            <td>
+                <p-button label="Details" icon="pi pi-search"
+                          (onClick)="openWindFarmTabTableDetailsDialog(windFarm.id)"></p-button>
             </td>
         </tr>
     </ng-template>
+
+    <ng-template #rowexpansion let-windFarm>
+
+    </ng-template>
 </p-table>
+
+
+<p-dialog [header]="'Wind farm electricity production details'" [visible]="isDetailsDialogOpen"
+          [style]="{'width': '60vw'}" [modal]="true"
+          [resizable]="true"
+          (visibleChange)="onDetailsDialogVisibleChange($event)">
+    <div class="dialog-header-filter">
+        <p-datepicker [(ngModel)]="dateTimeFromFilter" [readonlyInput]="true" appendTo="body"
+                      (onClose)="onDateChange()" [showIcon]="true" [showButtonBar]="true"
+                      [showTime]="true" hourFormat="24" placeholder="Filter from by date with time"></p-datepicker>
+        <p-datepicker [(ngModel)]="dateTimeToFilter" [readonlyInput]="true" appendTo="body"
+                      (onClose)="onDateChange()" [showIcon]="true" [showButtonBar]="true"
+                      [showTime]="true" hourFormat="24" placeholder="Filter to by date with time"></p-datepicker>
+        <div class="dialog-header-tags">
+            <div>
+                <p-tag [value]="averageCapacityFactor + ' MW'" [severity]="'success'"/>
+                Average capacity factor
+            </div>
+            <p-divider></p-divider>
+            <div>
+                <p-tag [value]="openWindFarm?.capacityMW + ' MW'" [severity]="'warn'"/>
+                Maximum farm capacity
+            </div>
+        </div>
+    </div>
+    <p-divider></p-divider>
+    <p-table [value]="electricityProductionData"
+             [rows]="10"
+             [first]="first"
+             [totalRecords]="electricityProductionPage.totalElements"
+             [showCurrentPageReport]="true"
+             [tableStyle]="{ 'min-width': '50rem' }"
+             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+             [size]="'small'"
+             [loading]="loading"
+             (onPage)="pageChange($event)">
+        <ng-template #header>
+            <tr>
+                <th>Date</th>
+                <th>Electricity production</th>
+                <th>Capacity factor</th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-electricityProduction>
+            <tr>
+                <td>{{ electricityProduction.timestamp }}</td>
+                <!--                    | date: 'hh:mm:ss a dd/MM/yyyy ' }}</td>-->
+                <td>{{ electricityProduction.electricity_produced_mw }} MW</td>
+                <td>{{ electricityProduction.capacity_factor | number }}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <p-paginator
+            [rows]="rows"
+            [totalRecords]="electricityProductionPage.totalElements"
+            [pageLinkSize]="10"
+            (onPageChange)="pageChange($event)">
+    </p-paginator>
+</p-dialog>
+
+
+<p-dialog *ngIf="isWindFarmCreateDialogOpen" header="Add new wind farm" [visible]="isWindFarmCreateDialogOpen"
+          [style]="{'width': '50vw'}" [modal]="true"
+          (visibleChange)="onWindFarmCreationDialogVisibleChange($event)">
+    <form [formGroup]="windFarmForm">
+        <div class="form-group">
+            <p-floatlabel variant="in">
+                <input pInputText id="description" formControlName="description" autocomplete="off"/>
+                <label for="description">Description</label>
+            </p-floatlabel>
+            <hr>
+            <p-floatlabel variant="in">
+                <input pInputText id="capacityMW" formControlName="capacityMw" autocomplete="off"/>
+                <label for="capacityMW">Capacity MW</label>
+            </p-floatlabel>
+            <hr>
+            <p-select [options]="timezonesOptions" formControlName="timezone" optionLabel="name" optionValue="name"
+                      filterBy="name" [filter]="true" appendTo="body"
+                      (onChange)="onTimezoneChange($event)"
+                      [showClear]="true" placeholder="Select a timezone" class="w-full md:w-56">
+                <ng-template #selectedItem let-selectedOption>
+                    <div class="flex items-center gap-2">
+                        <div>{{ selectedTimezone }}</div>
+                    </div>
+                </ng-template>
+                <ng-template let-timezone #timezone>
+                    <div class="flex items-center gap-2">
+                        <div>{{ timezone.name }}</div>
+                    </div>
+                </ng-template>
+            </p-select>
+            <hr>
+            <p-floatlabel variant="in">
+                <input pInputText id="location" formControlName="location" autocomplete="off"/>
+                <label for="location">Location</label>
+            </p-floatlabel>
+            <hr>
+            <p-button type="submit" [disabled]="windFarmForm.invalid" (onClick)="submitWindFarmForm()">Submit</p-button>
+        </div>
+    </form>
+</p-dialog>

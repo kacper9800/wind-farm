@@ -22,9 +22,10 @@ export class WindFarmTabMapComponent implements AfterViewInit {
     }
 
     private initMap() {
-        this.map = L.map(this.mapElementRef.nativeElement).setView([50.00, 20.00], 3); // Ustawienie domyślnego widoku
+        this.map = L.map(this.mapElementRef.nativeElement).setView([20.00, 0.00], 2); // Ustawienie domyślnego widoku
 
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            noWrap: true,
             maxZoom: 19,
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(this.map);
@@ -33,7 +34,7 @@ export class WindFarmTabMapComponent implements AfterViewInit {
             const location = windFarm.location.split(' ');
             const marker = L.circleMarker([Number.parseFloat(location[0]), Number.parseFloat(location[1])], {
                 radius: 8,
-                color: 'lightgreen',
+                color: 'blue',
                 opacity: 1,
                 weight: 4
             }).addTo(this.map);
