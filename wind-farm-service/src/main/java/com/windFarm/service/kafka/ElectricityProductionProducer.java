@@ -1,4 +1,4 @@
-package com.windFarm.service;
+package com.windFarm.service.kafka;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.windFarm.dto.WindFarmDto;
 
+import com.windFarm.service.WindFarmService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -28,7 +29,7 @@ public class ElectricityProductionProducer {
         this.windFarmService = windFarmService;
     }
 
-    @Scheduled(cron = "0 * * * * *")
+    @Scheduled(cron = "* 59 * * * *")
     public void produceElectricity() {
         List<WindFarmDto> windFarms = windFarmService.getAllWindFarms();
         for (WindFarmDto farm : windFarms) {

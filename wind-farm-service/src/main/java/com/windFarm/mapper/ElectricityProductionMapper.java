@@ -6,6 +6,7 @@ import com.windFarm.entity.WindFarm;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 @Component
 public class ElectricityProductionMapper {
@@ -20,11 +21,11 @@ public class ElectricityProductionMapper {
 
         if (entity.getWindFarm() != null) {
             dto.setWindFarmId(entity.getWindFarm().getId());
+            dto.setCapacityFactor(entity.getElectricityProducedMW() / entity.getWindFarm().getCapacityMW());
         }
 
         dto.setTimestamp(entity.getTimestamp() != null ? entity.getTimestamp().toString() : null);
         dto.setElectricityProducedMW(entity.getElectricityProducedMW() != null ? entity.getElectricityProducedMW() : 0.0);
-
         return dto;
     }
 
@@ -39,7 +40,7 @@ public class ElectricityProductionMapper {
 
         if (dto.getTimestamp() != null && !dto.getTimestamp().isEmpty()) {
             try {
-                entity.setTimestamp(LocalDateTime.parse(dto.getTimestamp()));
+                entity.setTimestamp(LocalDateTime.parse(dto.getTimestamp()).atOffset(ZoneOffset.UTC).toLocalDateTime());
             } catch (Exception e) {
                 throw new IllegalArgumentException("Invalid timestamp format: " + dto.getTimestamp(), e);
             }
@@ -52,6 +53,7 @@ public class ElectricityProductionMapper {
             windFarm.setId(dto.getWindFarmId());
             entity.setWindFarm(windFarm);
         }
+
 
         return entity;
     }

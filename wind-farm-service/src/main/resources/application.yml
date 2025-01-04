@@ -1,4 +1,10 @@
+server:
+  servlet:
+    context-path: /api
+
 spring:
+  jpa:
+    show-sql: true
   application:
     name: wind-farm
   datasource:

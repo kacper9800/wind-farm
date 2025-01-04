@@ -1,4 +1,4 @@
-package com.wind_farm;
+package com.windFarm;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

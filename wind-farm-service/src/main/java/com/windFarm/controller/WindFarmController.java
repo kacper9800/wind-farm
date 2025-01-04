@@ -1,8 +1,10 @@
 package com.windFarm.controller;
 
 import com.windFarm.dto.ElectricityProductionDto;
+import com.windFarm.dto.ElectricityProductionFilterDto;
 import com.windFarm.dto.WindFarmDto;
 import com.windFarm.service.WindFarmService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +13,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/windFarm")
+@RequestMapping("/windFarms")
 public class WindFarmController {
         private final WindFarmService windFarmService;
 
@@ -29,17 +31,20 @@ public class WindFarmController {
            return windFarmService.getWindFarmInfo(id);
         }
 
-        @GetMapping("/electricityProduction")
-        public List<ElectricityProductionDto> getElectricityProduction(@RequestParam long windFarmId,
-                                                                       @RequestParam(required = false) LocalDateTime filterFromDate,
-                                                                       @RequestParam(required = false) LocalDateTime filterToDate) {
-            return windFarmService.getElectricityProduction(windFarmId, filterFromDate, filterToDate);
-        }
+
+//        public Page<ElectricityProductionDto> getElectricityProduction(@RequestParam long windFarmId,
+//                                                                       @RequestParam(required = false) LocalDateTime fromDate,
+//                                                                       @RequestParam(required = false) LocalDateTime toDate,
+//                                                                       @RequestParam(required = false, defaultValue = "30") Integer pageSize,
+//                                                                       @RequestParam(required = false, defaultValue = "0") Integer pageNumber) {
+//            return windFarmService.getElectricityProduction(windFarmId, fromDate, toDate, pageSize, pageNumber);
+//        }
+
+
 
         @PostMapping
-        public ResponseEntity.BodyBuilder createWindFarm(@RequestBody WindFarmDto windFarmDto) {
+        public void createWindFarm(@RequestBody WindFarmDto windFarmDto) {
             this.windFarmService.createWindFarm(windFarmDto);
-            return ResponseEntity.ok();
         }
 
     }

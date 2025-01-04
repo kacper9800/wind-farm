@@ -17,4 +17,6 @@ public class ElectricityProductionDto {
     @JsonProperty("electricity_produced_mw")
     private double electricityProducedMW;
 
+    @JsonProperty("capacity_factor")
+    private double capacityFactor;
 }
