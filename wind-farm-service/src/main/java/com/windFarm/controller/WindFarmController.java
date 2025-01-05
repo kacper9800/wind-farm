@@ -4,47 +4,75 @@ import com.windFarm.dto.ElectricityProductionDto;
 import com.windFarm.dto.ElectricityProductionFilterDto;
 import com.windFarm.dto.WindFarmDto;
 import com.windFarm.service.WindFarmService;
-import org.springframework.data.domain.Page;
-import org.springframework.http.ResponseEntity;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
-
 
 @RestController
 @RequestMapping("/windFarms")
+@Tag(name = "WindFarmController", description = "API for managing wind farms")
 public class WindFarmController {
-        private final WindFarmService windFarmService;
 
-        public WindFarmController(WindFarmService windFarmService) {
-            this.windFarmService = windFarmService;
-        }
+    private final WindFarmService windFarmService;
 
-        @GetMapping
-        public List<WindFarmDto> getAllWindFarms() {
-            return windFarmService.getAllWindFarms();
-        }
-
-        @GetMapping("/info")
-        public WindFarmDto getWindFarmInfo(@RequestParam long id) {
-           return windFarmService.getWindFarmInfo(id);
-        }
-
-
-//        public Page<ElectricityProductionDto> getElectricityProduction(@RequestParam long windFarmId,
-//                                                                       @RequestParam(required = false) LocalDateTime fromDate,
-//                                                                       @RequestParam(required = false) LocalDateTime toDate,
-//                                                                       @RequestParam(required = false, defaultValue = "30") Integer pageSize,
-//                                                                       @RequestParam(required = false, defaultValue = "0") Integer pageNumber) {
-//            return windFarmService.getElectricityProduction(windFarmId, fromDate, toDate, pageSize, pageNumber);
-//        }
-
-
-
-        @PostMapping
-        public void createWindFarm(@RequestBody WindFarmDto windFarmDto) {
-            this.windFarmService.createWindFarm(windFarmDto);
-        }
-
+    public WindFarmController(WindFarmService windFarmService) {
+        this.windFarmService = windFarmService;
     }
+
+    @GetMapping
+    @Operation(
+            summary = "Get all wind farms",
+            description = "Retrieves a list of all wind farms.",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "List of wind farms retrieved successfully",
+                            content = @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = WindFarmDto.class))),
+                    @ApiResponse(responseCode = "500", description = "Internal server error")
+            }
+    )
+    public List<WindFarmDto> getAllWindFarms() {
+        return windFarmService.getAllWindFarms();
+    }
+
+    @GetMapping("/info")
+    @Operation(
+            summary = "Get wind farm information",
+            description = "Fetches detailed information about a specific wind farm based on its ID.",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Wind farm information retrieved successfully",
+                            content = @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = WindFarmDto.class))),
+                    @ApiResponse(responseCode = "404", description = "Wind farm not found"),
+                    @ApiResponse(responseCode = "500", description = "Internal server error")
+            }
+    )
+    public WindFarmDto getWindFarmInfo(@RequestParam long id) {
+        return windFarmService.getWindFarmInfo(id);
+    }
+
+    @PostMapping
+    @Operation(
+            summary = "Create a new wind farm",
+            description = "Creates a new wind farm with the provided data.",
+            requestBody = @RequestBody(
+                    description = "Details of the wind farm to be created",
+                    required = true,
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = WindFarmDto.class))
+            ),
+            responses = {
+                    @ApiResponse(responseCode = "201", description = "Wind farm created successfully"),
+                    @ApiResponse(responseCode = "400", description = "Invalid request body"),
+                    @ApiResponse(responseCode = "500", description = "Internal server error")
+            }
+    )
+    public void createWindFarm(@RequestBody WindFarmDto windFarmDto) {
+        this.windFarmService.createWindFarm(windFarmDto);
+    }
+}
