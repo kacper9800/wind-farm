@@ -29,7 +29,7 @@ public class ElectricityProductionProducer {
         this.windFarmService = windFarmService;
     }
 
-    @Scheduled(cron = "* 59 * * * *")
+    @Scheduled(cron = "0 59 * * * *")
     public void produceElectricity() {
         List<WindFarmDto> windFarms = windFarmService.getAllWindFarms();
         for (WindFarmDto farm : windFarms) {
@@ -37,6 +37,7 @@ public class ElectricityProductionProducer {
             String key = prepareKey(farm.getId(), timestamp);
             String value = prepareValue(farm.getId(), farm.getCapacityMW(), timestamp);
             this.producer.sendMessage(TOPIC, key, value);
+            logger.info("Produced message to topic {} with key {} and value {}", TOPIC, key, value);
         }
     }
 
