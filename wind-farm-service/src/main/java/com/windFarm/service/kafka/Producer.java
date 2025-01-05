@@ -18,7 +18,7 @@ public class Producer {
     private KafkaTemplate<String, String> kafkaTemplate;
 
     public void sendMessage(String topic, String key, String value) {
-        CompletableFuture<SendResult<String, String>> future = kafkaTemplate.send(topic, key, value);
+        kafkaTemplate.send(topic, key, value);
         logger.info("Sent message to topic {} with key {} and value {}", topic, key, value);
     }
 }

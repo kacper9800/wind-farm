@@ -18,16 +18,13 @@ class WindFarmMapperTest {
 
     @Test
     void testToDto_NullEntity_ShouldReturnNull() {
-        // Act
         WindFarmDto dto = mapper.toDto(null);
 
-        // Assert
         assertThat(dto).isNull();
     }
 
     @Test
     void testToDto_ValidEntity_ShouldMapFieldsCorrectly() {
-        // Arrange
         WindFarm entity = new WindFarm();
         entity.setId(1L);
         entity.setDescription("Wind farm description");
@@ -35,10 +32,8 @@ class WindFarmMapperTest {
         entity.setLocation("Poland");
         entity.setCapacityMW(100.0);
 
-        // Act
         WindFarmDto dto = mapper.toDto(entity);
 
-        // Assert
         assertThat(dto).isNotNull();
         assertThat(dto.getId()).isEqualTo(1L);
         assertThat(dto.getDescription()).isEqualTo("Wind farm description");
@@ -49,16 +44,13 @@ class WindFarmMapperTest {
 
     @Test
     void testToEntity_NullDto_ShouldReturnNull() {
-        // Act
         WindFarm entity = mapper.toEntity(null);
 
-        // Assert
         assertThat(entity).isNull();
     }
 
     @Test
     void testToEntity_ValidDto_ShouldMapFieldsCorrectly() {
-        // Arrange
         WindFarmDto dto = new WindFarmDto();
         dto.setId(1L);
         dto.setDescription("Wind farm description");
@@ -66,10 +58,8 @@ class WindFarmMapperTest {
         dto.setLocation("Poland");
         dto.setCapacityMW(100.0);
 
-        // Act
         WindFarm entity = mapper.toEntity(dto);
 
-        // Assert
         assertThat(entity).isNotNull();
         assertThat(entity.getId()).isEqualTo(1L);
         assertThat(entity.getDescription()).isEqualTo("Wind farm description");

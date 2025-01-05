@@ -15,6 +15,7 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 @Service
 public class ElectricityProductionService {
@@ -36,35 +37,26 @@ public class ElectricityProductionService {
     }
 
     public Page<ElectricityProductionDto> getElectricityProduction(ElectricityProductionFilterDto filterDto) {
-        LocalDateTime fromDate, toDate;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSX");
-        if (filterDto.getFromDate() != null) {
-            ZonedDateTime zonedFromDateTime = ZonedDateTime.parse(filterDto.getFromDate(), formatter);
-            fromDate = zonedFromDateTime.toLocalDateTime();
-        } else {
-            fromDate = LocalDateTime.of(2000, 9, 11, 22, 22, 22);
-        }
-        if (filterDto.getToDate() != null) {
-            ZonedDateTime zonedToDateTime = ZonedDateTime.parse(filterDto.getToDate(), formatter);
-            toDate = zonedToDateTime.toLocalDateTime();
-        } else {
-            toDate = LocalDateTime.of(2090, 9, 11, 22, 22, 22);
-        }
 
-        String targetTimezone = filterDto.getTimezone() != null
-                ? filterDto.getTimezone()
-                : "UTC";
+        LocalDateTime defaultMinDate = LocalDateTime.of(1, 1, 1, 0, 0);
+        LocalDateTime defaultMaxDate = LocalDateTime.of(294276, 12, 31, 23, 59, 59);
 
-        ZoneId targetZoneId;
-        try {
-            targetZoneId = ZoneId.of(targetTimezone);
-        } catch (Exception e) {
-            throw new IllegalArgumentException("Invalid timezone: " + targetTimezone);
-        }
+        LocalDateTime fromDate = Optional.ofNullable(filterDto.getFromDate())
+                .map(from -> ZonedDateTime.parse(from, formatter).toLocalDateTime())
+                .orElse(defaultMinDate);
+
+        LocalDateTime toDate = Optional.ofNullable(filterDto.getToDate())
+                .map(to -> ZonedDateTime.parse(to, formatter).toLocalDateTime())
+                .orElse(defaultMaxDate);
+
+        String targetTimezone = Optional.ofNullable(filterDto.getTimezone()).orElse("UTC");
+
+        ZoneId targetZoneId = parseZoneId(targetTimezone);
 
         Pageable pageable = PageRequest.of(filterDto.getPageNumber(), filterDto.getPageSize());
 
-        Page<ElectricityProduction> results = repository.findElectricityProductionByWindFarmIdAndTimestampBetween(
+        Page<ElectricityProduction> results = repository.findElectricityProduction(
                 filterDto.getWindFarmId(), fromDate, toDate, pageable);
 
         return results.map(electricityProduction -> {
@@ -73,9 +65,17 @@ public class ElectricityProductionService {
                     .withZoneSameInstant(targetZoneId);
 
             ElectricityProductionDto dto = mapper.toDto(electricityProduction);
-            dto.setTimestamp(localTimestamp.toString()); // np. 2025-01-04T12:00:00+01:00[Europe/Warsaw]
+            dto.setTimestamp(localTimestamp.toString());
             return dto;
         });
+    }
+
+    private ZoneId parseZoneId(String timezone) {
+        try {
+            return ZoneId.of(timezone);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Invalid timezone: " + timezone);
+        }
     }
 
     public Double getAverageCapacityFactor(ElectricityProductionFilterDto filterDto) {

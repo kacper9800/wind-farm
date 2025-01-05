@@ -18,7 +18,7 @@ public interface ElectricityProductionRepository extends JpaRepository<Electrici
             "WHERE e.windFarm.id = :windFarmId " +
             "AND e.timestamp BETWEEN :fromDate AND :toDate " +
             "ORDER BY e.timestamp DESC")
-    Page<ElectricityProduction> findElectricityProductionByWindFarmIdAndTimestampBetween(
+    Page<ElectricityProduction> findElectricityProduction(
             @Param("windFarmId") long windFarmId,
             @Param("fromDate") LocalDateTime fromDate,
             @Param("toDate") LocalDateTime toDate,

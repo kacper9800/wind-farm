@@ -71,7 +71,7 @@ class ElectricityProductionServiceTest {
         entity.setTimestamp(LocalDateTime.of(2025, 1, 1, 12, 0));
 
         Page<ElectricityProduction> page = new PageImpl<>(Collections.singletonList(entity));
-        when(repository.findElectricityProductionByWindFarmIdAndTimestampBetween(
+        when(repository.findElectricityProduction(
                 eq(1L), any(LocalDateTime.class), any(LocalDateTime.class), any(Pageable.class)))
                 .thenReturn(page);
 
@@ -86,7 +86,7 @@ class ElectricityProductionServiceTest {
         assertEquals(1, result.getTotalElements());
         assertEquals(1L, result.getContent().get(0).getId());
         assertEquals("2025-01-01T13:00+01:00[Europe/Warsaw]", result.getContent().get(0).getTimestamp());
-        verify(repository, times(1)).findElectricityProductionByWindFarmIdAndTimestampBetween(
+        verify(repository, times(1)).findElectricityProduction(
                 eq(1L), any(LocalDateTime.class), any(LocalDateTime.class), any(Pageable.class));
     }
 
@@ -105,7 +105,7 @@ class ElectricityProductionServiceTest {
         entity.setTimestamp(LocalDateTime.of(2025, 6, 1, 12, 0));
 
         Page<ElectricityProduction> page = new PageImpl<>(Collections.singletonList(entity));
-        when(repository.findElectricityProductionByWindFarmIdAndTimestampBetween(
+        when(repository.findElectricityProduction(
                 eq(1L), any(LocalDateTime.class), any(LocalDateTime.class), any(Pageable.class)))
                 .thenReturn(page);
 

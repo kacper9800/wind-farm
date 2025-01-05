@@ -18,7 +18,7 @@ public class ElectricityProductionListener {
 
     private final ElectricityProductionService service;
 
-    ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     public ElectricityProductionListener(ElectricityProductionService service) {
         this.service = service;
@@ -30,6 +30,7 @@ public class ElectricityProductionListener {
             ElectricityProductionDto electricityProductionDto = objectMapper.readValue(value, ElectricityProductionDto.class);
             service.createElectricityProduction(electricityProductionDto);
         } catch (JsonProcessingException e) {
+            logger.error("Occurred error during processing event {}", e.getMessage());
             throw new RuntimeException(e);
         }
         logger.info(String.format("Consumed event from topic %s: value = %s", topic,value));

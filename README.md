@@ -24,6 +24,13 @@ The project uses **PostgreSQL** as its database for storing wind farm data and s
 
 ---
 
+## Diagram
+
+![Wind farm](wind-farm-diagram.png)
+
+
+---
+
 ## Backend (Spring Boot Application)
 
 ### Build and Run
@@ -31,7 +38,7 @@ The project uses **PostgreSQL** as its database for storing wind farm data and s
 1. **Clone the Repository**:
    ```bash
    git clone https://github.com/your-repository.git
-   cd wind-farm-backend
+   cd wind-farm-service
    ```
 
 2. **Configure Database**:
@@ -63,7 +70,7 @@ The project uses **PostgreSQL** as its database for storing wind farm data and s
 
 1. **Navigate to the Angular Project**:
    ```bash
-   cd wind-farm-frontend
+   cd wind-farm-ui
    ```
 
 2. **Install Dependencies**:
