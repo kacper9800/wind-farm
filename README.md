@@ -40,12 +40,11 @@ The project uses **PostgreSQL** as its database for storing wind farm data and s
    spring.datasource.url=jdbc:postgresql://localhost:5432/your_database
    spring.datasource.username=your_username
    spring.datasource.password=your_password
-   spring.jpa.hibernate.ddl-auto=update
    ```
 
 3. **Build the Application**:
    ```bash
-   ./mvnw clean package
+   ./mvnw clean install
    ```
 
 4. **Run the Application**:
