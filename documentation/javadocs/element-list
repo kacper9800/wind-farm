@@ -1,0 +1,9 @@
+com.windFarm
+com.windFarm.controller
+com.windFarm.dto
+com.windFarm.entity
+com.windFarm.mapper
+com.windFarm.repository
+com.windFarm.service
+com.windFarm.service.kafka
+com.windFarm.utils

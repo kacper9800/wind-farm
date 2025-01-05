@@ -26,8 +26,7 @@ The project uses **PostgreSQL** as its database for storing wind farm data and s
 
 ## Diagram
 
-![Wind farm](./wind-farm-diagram.png)
-
+![Wind farm](documentation/wind-farm-diagram.png)
 
 ---
 
