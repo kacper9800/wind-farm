@@ -1,10 +1,14 @@
 package com.windFarm.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 @Entity
-@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Getter
+@Setter
 @Table(name = "wind_farm")
 public class WindFarm {
 
@@ -13,7 +17,7 @@ public class WindFarm {
     private Long id;
 
     @Column(name = "capacity_MW")
-    private Double capacityMW;
+    private Double capacityMw;
 
     @Column(name = "description")
     private String description;

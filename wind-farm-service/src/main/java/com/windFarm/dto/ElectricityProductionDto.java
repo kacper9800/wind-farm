@@ -1,12 +1,16 @@
 package com.windFarm.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
+import lombok.*;
 
-@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Getter
+@Setter
 public class ElectricityProductionDto {
 
-    private long id;
+    private Long id;
 
     @JsonProperty("wind_farm_id")
     private long windFarmId;
@@ -15,7 +19,7 @@ public class ElectricityProductionDto {
     private String timestamp;
 
     @JsonProperty("electricity_produced_mw")
-    private double electricityProducedMW;
+    private double electricityProducedMw;
 
     @JsonProperty("capacity_factor")
     private double capacityFactor;

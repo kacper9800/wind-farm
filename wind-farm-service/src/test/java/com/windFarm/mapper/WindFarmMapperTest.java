@@ -25,12 +25,12 @@ class WindFarmMapperTest {
 
     @Test
     void testToDto_ValidEntity_ShouldMapFieldsCorrectly() {
-        WindFarm entity = new WindFarm();
-        entity.setId(1L);
-        entity.setDescription("Wind farm description");
-        entity.setTimezone("Europe/Warsaw");
-        entity.setLocation("Poland");
-        entity.setCapacityMW(100.0);
+        WindFarm entity = WindFarm.builder()
+                .id(1L)
+                .description("Wind farm description")
+                .timezone("Europe/Warsaw")
+                .location("Poland")
+                .capacityMw(100.0).build();
 
         WindFarmDto dto = mapper.toDto(entity);
 
@@ -39,7 +39,7 @@ class WindFarmMapperTest {
         assertThat(dto.getDescription()).isEqualTo("Wind farm description");
         assertThat(dto.getTimezone()).isEqualTo("Europe/Warsaw");
         assertThat(dto.getLocation()).isEqualTo("Poland");
-        assertThat(dto.getCapacityMw()).isEqualTo("100.0");
+        assertThat(dto.getCapacityMw()).isEqualTo(100.0);
     }
 
     @Test
@@ -51,12 +51,13 @@ class WindFarmMapperTest {
 
     @Test
     void testToEntity_ValidDto_ShouldMapFieldsCorrectly() {
-        WindFarmDto dto = new WindFarmDto();
-        dto.setId(1L);
-        dto.setDescription("Wind farm description");
-        dto.setTimezone("Europe/Warsaw");
-        dto.setLocation("Poland");
-        dto.setCapacityMw("100.0");
+        WindFarmDto dto = WindFarmDto.builder()
+                .id(1L)
+                .description("Wind farm description")
+                .timezone("Europe/Warsaw")
+                .location("Poland")
+                .capacityMw(100.0).build();
+
 
         WindFarm entity = mapper.toEntity(dto);
 
@@ -65,6 +66,6 @@ class WindFarmMapperTest {
         assertThat(entity.getDescription()).isEqualTo("Wind farm description");
         assertThat(entity.getTimezone()).isEqualTo("Europe/Warsaw");
         assertThat(entity.getLocation()).isEqualTo("Poland");
-        assertThat(entity.getCapacityMW()).isEqualTo(100.0);
+        assertThat(entity.getCapacityMw()).isEqualTo(100.0);
     }
 }

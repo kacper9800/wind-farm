@@ -39,12 +39,14 @@ class ElectricityProductionServiceTest {
 
     @Test
     void testCreateElectricityProduction() {
-        ElectricityProductionDto dto = new ElectricityProductionDto();
-        dto.setId(1L);
-        dto.setTimestamp("2025-01-04T12:00:00+01:00[Europe/Warsaw]");
+        ElectricityProductionDto dto = ElectricityProductionDto.builder()
+                .id(1L)
+                .timestamp("2025-01-04T12:00:00+01:00[Europe/Warsaw]")
+                .build();
 
-        ElectricityProduction entity = new ElectricityProduction();
-        entity.setId(1L);
+        ElectricityProduction entity = ElectricityProduction.builder()
+                .id(1L)
+                .build();
 
         when(mapper.toEntity(dto)).thenReturn(entity);
         when(repository.save(entity)).thenReturn(entity);
@@ -66,18 +68,20 @@ class ElectricityProductionServiceTest {
         filterDto.setPageNumber(0);
         filterDto.setPageSize(10);
 
-        ElectricityProduction entity = new ElectricityProduction();
-        entity.setId(1L);
-        entity.setTimestamp(LocalDateTime.of(2025, 1, 1, 12, 0));
+        ElectricityProduction entity = ElectricityProduction
+                .builder()
+                .id(1L)
+                .timestamp(LocalDateTime.of(2025, 1, 1, 12, 0))
+                .build();
 
         Page<ElectricityProduction> page = new PageImpl<>(Collections.singletonList(entity));
         when(repository.findElectricityProduction(
                 eq(1L), any(LocalDateTime.class), any(LocalDateTime.class), any(Pageable.class)))
                 .thenReturn(page);
 
-        ElectricityProductionDto dto = new ElectricityProductionDto();
-        dto.setId(1L);
-        dto.setTimestamp("2025-01-01T13:00:00+01:00[Europe/Warsaw]");
+        ElectricityProductionDto dto = ElectricityProductionDto.builder()
+                .id(1L)
+                .timestamp("2025-01-01T13:00:00+01:00[Europe/Warsaw]").build();
         when(mapper.toDto(entity)).thenReturn(dto);
 
         Page<ElectricityProductionDto> result = service.getElectricityProduction(filterDto);
@@ -100,18 +104,20 @@ class ElectricityProductionServiceTest {
         filterDto.setPageNumber(0);
         filterDto.setPageSize(10);
 
-        ElectricityProduction entity = new ElectricityProduction();
-        entity.setId(1L);
-        entity.setTimestamp(LocalDateTime.of(2025, 6, 1, 12, 0));
+        ElectricityProduction entity = ElectricityProduction.builder()
+                .id(1L)
+                .timestamp(LocalDateTime.of(2025, 6, 1, 12, 0))
+                .build();
 
         Page<ElectricityProduction> page = new PageImpl<>(Collections.singletonList(entity));
         when(repository.findElectricityProduction(
                 eq(1L), any(LocalDateTime.class), any(LocalDateTime.class), any(Pageable.class)))
                 .thenReturn(page);
 
-        ElectricityProductionDto dto = new ElectricityProductionDto();
-        dto.setId(1L);
-        dto.setTimestamp("2025-06-01T14:00:00+02:00[Europe/Warsaw]");
+        ElectricityProductionDto dto = ElectricityProductionDto.builder()
+                .id(1L)
+                .timestamp("2025-06-01T14:00:00+02:00[Europe/Warsaw]")
+                .build();
         when(mapper.toDto(entity)).thenReturn(dto);
 
         Page<ElectricityProductionDto> result = service.getElectricityProduction(filterDto);

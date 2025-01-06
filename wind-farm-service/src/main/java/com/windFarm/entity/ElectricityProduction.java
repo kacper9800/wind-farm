@@ -1,12 +1,16 @@
 package com.windFarm.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Getter
+@Setter
 @Table(name = "electricity_production")
 public class ElectricityProduction {
 
@@ -21,7 +25,7 @@ public class ElectricityProduction {
     private LocalDateTime timestamp;
 
     @Column(name = "electricity_produced_mw")
-    private Long electricityProducedMW;
+    private Double electricityProducedMW;
 
 }
 

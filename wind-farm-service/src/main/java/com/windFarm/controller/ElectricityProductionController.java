@@ -90,7 +90,7 @@ public class ElectricityProductionController {
                     required = true,
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ElectricityProductionDto.class)))
-            ElectricityProductionDto electricityProductionDto) {
+            @org.springframework.web.bind.annotation.RequestBody  ElectricityProductionDto electricityProductionDto) {
         ElectricityProductionDto createdElectricityProduction = electricityProductionService.createElectricityProduction(electricityProductionDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdElectricityProduction);
     }

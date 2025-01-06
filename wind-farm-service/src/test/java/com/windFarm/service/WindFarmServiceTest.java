@@ -1,6 +1,5 @@
 package com.windFarm.service;
 
-import com.windFarm.dto.ElectricityProductionDto;
 import com.windFarm.dto.WindFarmDto;
 import com.windFarm.entity.WindFarm;
 import com.windFarm.mapper.WindFarmMapper;
@@ -37,11 +36,9 @@ class WindFarmServiceTest {
 
     @Test
     void testGetAllWindFarms() {
-        WindFarm windFarm = new WindFarm();
-        windFarm.setId(1L);
+        WindFarm windFarm = WindFarm.builder().id(1L).build();
 
-        WindFarmDto dto = new WindFarmDto();
-        dto.setId(1L);
+        WindFarmDto dto = WindFarmDto.builder().id(1L).build();
 
         when(repository.findAll()).thenReturn(Collections.singletonList(windFarm));
         when(windFarmMapper.toDto(windFarm)).thenReturn(dto);
@@ -57,11 +54,9 @@ class WindFarmServiceTest {
 
     @Test
     void testGetWindFarmInfo_ExistingId() {
-        WindFarm windFarm = new WindFarm();
-        windFarm.setId(1L);
+        WindFarm windFarm = WindFarm.builder().id(1L).build();
 
-        WindFarmDto dto = new WindFarmDto();
-        dto.setId(1L);
+        WindFarmDto dto = WindFarmDto.builder().id(1L).build();
 
         when(repository.findById(1L)).thenReturn(Optional.of(windFarm));
         when(windFarmMapper.toDto(windFarm)).thenReturn(dto);
@@ -86,18 +81,20 @@ class WindFarmServiceTest {
 
     @Test
     void testCreateWindFarm() {
-        WindFarmDto dto = new WindFarmDto();
-        dto.setDescription("Wind farm in Poland");
-        dto.setLocation("50,99 34,88");
-        dto.setCapacityMw("2.4");
-        dto.setTimezone("Europe/Warsaw");
+        WindFarmDto dto = WindFarmDto.builder()
+                .description("Wind farm in Poland")
+                .location("50,99 34,88")
+                .timezone("Europe/Warsaw")
+                .capacityMw(2.4)
+                .build();
 
-        WindFarm entity = new WindFarm();
-        entity.setId(1L);
-        entity.setDescription("Wind farm in Poland");
-        entity.setLocation("50,99 34,88");
-        entity.setCapacityMW(2.4);
-        entity.setTimezone("Europe/Warsaw");
+        WindFarm entity = WindFarm.builder()
+                .id(1L)
+                .description("Wind farm in Poland")
+                .location("50,99 34,88")
+                .capacityMw(2.4)
+                .timezone("Europe/Warsaw")
+                .build();
 
         when(windFarmMapper.toEntity(dto)).thenReturn(entity);
         when(repository.save(entity)).thenReturn(entity);

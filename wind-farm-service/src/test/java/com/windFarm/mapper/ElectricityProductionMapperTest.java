@@ -28,16 +28,17 @@ class ElectricityProductionMapperTest {
 
     @Test
     void testToDto_ValidEntity_ShouldMapFieldsCorrectly() {
-        WindFarm windFarm = new WindFarm();
-        windFarm.setId(1L);
-        windFarm.setCapacityMW(100.0);
+        WindFarm windFarm = WindFarm.builder()
+                .id(1L)
+                .capacityMw(100.0)
+                .build();
 
-        ElectricityProduction entity = new ElectricityProduction();
-        entity.setId(2L);
-        entity.setWindFarm(windFarm);
-        entity.setTimestamp(LocalDateTime.of(2025, 1, 1, 12, 0));
-        entity.setElectricityProducedMW(50L);
-
+        ElectricityProduction entity = ElectricityProduction.builder()
+                .id(2L)
+                .windFarm(windFarm)
+                .timestamp(LocalDateTime.of(2025, 1, 1, 12, 0))
+                .electricityProducedMW(50.0)
+                .build();
         ElectricityProductionDto dto = mapper.toDto(entity);
 
         assertThat(dto).isNotNull();
@@ -45,7 +46,7 @@ class ElectricityProductionMapperTest {
         assertThat(dto.getWindFarmId()).isEqualTo(1L);
         assertThat(dto.getCapacityFactor()).isEqualTo(0.5);
         assertThat(dto.getTimestamp()).isEqualTo("2025-01-01T12:00");
-        assertThat(dto.getElectricityProducedMW()).isEqualTo(50.0);
+        assertThat(dto.getElectricityProducedMw()).isEqualTo(50.0);
     }
 
     @Test
@@ -57,12 +58,12 @@ class ElectricityProductionMapperTest {
 
     @Test
     void testToEntity_ValidDto_ShouldMapFieldsCorrectly() {
-        ElectricityProductionDto dto = new ElectricityProductionDto();
-        dto.setId(2L);
-        dto.setWindFarmId(1L);
-        dto.setTimestamp("2025-01-01T12:00:00");
-        dto.setElectricityProducedMW(50.0);
-
+        ElectricityProductionDto dto = ElectricityProductionDto.builder()
+                .id(2L)
+                .windFarmId(1L)
+                .timestamp("2025-01-01T12:00:00")
+                .electricityProducedMw(50.0)
+                .build();
         ElectricityProduction entity = mapper.toEntity(dto);
 
         assertThat(entity).isNotNull();
@@ -75,16 +76,16 @@ class ElectricityProductionMapperTest {
 
     @Test
     void testToEntity_InvalidTimestamp_ShouldThrowException() {
-        ElectricityProductionDto dto = new ElectricityProductionDto();
-        dto.setTimestamp("invalid-timestamp");
+        ElectricityProductionDto dto = ElectricityProductionDto.builder()
+                .timestamp("invalid-timestamp").build();
 
         assertThrows(IllegalArgumentException.class, () -> mapper.toEntity(dto));
     }
 
     @Test
     void testToEntity_EmptyTimestamp_ShouldNotSetTimestamp() {
-        ElectricityProductionDto dto = new ElectricityProductionDto();
-        dto.setTimestamp("");
+        ElectricityProductionDto dto = ElectricityProductionDto.builder()
+                .timestamp("").build();
 
         ElectricityProduction entity = mapper.toEntity(dto);
 
@@ -94,8 +95,8 @@ class ElectricityProductionMapperTest {
 
     @Test
     void testToEntity_WindFarmIdZero_ShouldNotSetWindFarm() {
-        ElectricityProductionDto dto = new ElectricityProductionDto();
-        dto.setWindFarmId(0);
+        ElectricityProductionDto dto = ElectricityProductionDto.builder()
+                .windFarmId(0).build();
 
         ElectricityProduction entity = mapper.toEntity(dto);
 

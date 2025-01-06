@@ -46,9 +46,8 @@ public class ElectricityProductionProducer {
         return String.valueOf(windFarmId).concat(" - ").concat(timestamp.toString());
     }
 
-    private String prepareValue(Long windFarmId, String capacityMW, LocalDateTime timestamp) {
-        double capacity = Double.parseDouble(capacityMW);
-        double randomProducedElectricityMWValue = ThreadLocalRandom.current().nextDouble(0, capacity);
+    private String prepareValue(Long windFarmId, double capacityMw, LocalDateTime timestamp) {
+        double randomProducedElectricityMWValue = ThreadLocalRandom.current().nextDouble(0, capacityMw);
         JsonNodeFactory factory = JsonNodeFactory.instance;
         ObjectNode json = factory.objectNode();
 

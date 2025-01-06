@@ -1,12 +1,16 @@
 package com.windFarm.dto;
 
-import lombok.Data;
+import lombok.*;
 
-@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Getter
+@Setter
 public class WindFarmDto {
     Long id;
     String description;
     String timezone;
     String location;
-    String capacityMw;
+    Double capacityMw;
 }

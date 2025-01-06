@@ -16,16 +16,15 @@ public class ElectricityProductionMapper {
             return null;
         }
 
-        ElectricityProductionDto dto = new ElectricityProductionDto();
-        dto.setId(entity.getId());
+        ElectricityProductionDto dto = ElectricityProductionDto.builder().id(entity.getId()).build();
 
         if (entity.getWindFarm() != null) {
             dto.setWindFarmId(entity.getWindFarm().getId());
-            dto.setCapacityFactor(entity.getElectricityProducedMW() / entity.getWindFarm().getCapacityMW());
+            dto.setCapacityFactor(entity.getElectricityProducedMW() / entity.getWindFarm().getCapacityMw());
         }
 
         dto.setTimestamp(entity.getTimestamp() != null ? entity.getTimestamp().toString() : null);
-        dto.setElectricityProducedMW(entity.getElectricityProducedMW() != null ? entity.getElectricityProducedMW() : 0.0);
+        dto.setElectricityProducedMw(entity.getElectricityProducedMW() != null ? entity.getElectricityProducedMW() : 0.0);
         return dto;
     }
 
@@ -34,9 +33,10 @@ public class ElectricityProductionMapper {
             return null;
         }
 
-        ElectricityProduction entity = new ElectricityProduction();
-
-        entity.setId(dto.getId() != 0 ? dto.getId() : null);
+        ElectricityProduction entity = ElectricityProduction.builder()
+                .id(dto.getId() != null ? dto.getId() : null)
+                .electricityProducedMW(dto.getElectricityProducedMw())
+                .build();
 
         if (dto.getTimestamp() != null && !dto.getTimestamp().isEmpty()) {
             try {
@@ -46,14 +46,11 @@ public class ElectricityProductionMapper {
             }
         }
 
-        entity.setElectricityProducedMW((long) dto.getElectricityProducedMW());
 
         if (dto.getWindFarmId() != 0) {
-            WindFarm windFarm = new WindFarm();
-            windFarm.setId(dto.getWindFarmId());
+            WindFarm windFarm = WindFarm.builder().id(dto.getWindFarmId()).build();
             entity.setWindFarm(windFarm);
         }
-
 
         return entity;
     }
