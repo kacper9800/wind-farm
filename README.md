@@ -21,6 +21,7 @@ The project uses **PostgreSQL** as its database for storing wind farm data and s
 - **Node.js**: Version 16 or higher
 - **Angular CLI**: Installed globally
 - **PostgreSQL**: Running instance with a configured database
+- **Docker**: Running mvn test with test containers
 
 ---
 
