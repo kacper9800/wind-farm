@@ -1,6 +1,7 @@
 package com.windFarm.service.kafka;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -33,7 +34,7 @@ public class ElectricityProductionProducer {
     public void produceElectricity() {
         List<WindFarmDto> windFarms = windFarmService.getAllWindFarms();
         for (WindFarmDto farm : windFarms) {
-            LocalDateTime timestamp = LocalDateTime.now();
+            LocalDateTime timestamp = LocalDateTime.now(ZoneId.of("UTC"));
             String key = prepareKey(farm.getId(), timestamp);
             String value = prepareValue(farm.getId(), farm.getCapacityMw(), timestamp);
             this.producer.sendMessage(TOPIC, key, value);
