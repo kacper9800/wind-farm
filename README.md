@@ -30,6 +30,13 @@ The project uses **PostgreSQL** as its database for storing wind farm data and s
 
 ---
 
+## Screenshots from application
+
+![Wind farm](documentation/screenshots/screenshot-1.png)
+![Wind farm](documentation/screenshots/screenshot-2.png)
+![Wind farm](documentation/screenshots/screenshot-3.png)
+![Wind farm](documentation/screenshots/screenshot-4.png)
+
 ## Backend (Spring Boot Application)
 
 ### Build and Run
