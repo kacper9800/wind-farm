@@ -6,7 +6,7 @@ import {WindFarm} from "../../core/models/wind-farm.model";
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {Tag} from "primeng/tag";
 import {DialogModule} from "primeng/dialog";
-import {DecimalPipe, NgIf} from "@angular/common";
+import {NgIf} from "@angular/common";
 import {Page} from "../../core/models/page.model";
 import {ElectricityProduction} from "../../core/models/electricity-production.model";
 import {Paginator} from "primeng/paginator";
@@ -33,7 +33,6 @@ interface Options {
         Tag,
         Button,
         DialogModule,
-        DecimalPipe,
         Paginator,
         DatePicker,
         Divider,

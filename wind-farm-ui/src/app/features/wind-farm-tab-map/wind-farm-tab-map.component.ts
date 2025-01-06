@@ -38,7 +38,7 @@ export class WindFarmTabMapComponent implements AfterViewInit {
                 opacity: 1,
                 weight: 4
             }).addTo(this.map);
-            marker.bindPopup(windFarm.description + ' - capacity (' + windFarm.capacityMW + ' MW )');
+            marker.bindPopup(windFarm.description + ' - capacity (' + windFarm.capacityMw + ' MW )');
         });
     }
 }

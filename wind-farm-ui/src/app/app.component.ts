@@ -1,26 +1,18 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {RouterLink, RouterOutlet} from '@angular/router';
 import {CommonModule} from "@angular/common";
-import {Sidebar} from "primeng/sidebar";
 import {PrimeNG} from "primeng/config";
 
 @Component({
   selector: 'app-root',
-  imports: [CommonModule, Sidebar, RouterOutlet, RouterLink],
+  imports: [CommonModule, RouterOutlet, RouterLink],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'wind-farm';
 
-  isSidebarVisible = false;
-
   constructor(private primeng: PrimeNG) {}
-
-  // Funkcja do przełączania widoczności menu
-  toggleSidebar() {
-    this.isSidebarVisible = !this.isSidebarVisible;
-  }
 
   ngOnInit() {
     this.primeng.zIndex = {

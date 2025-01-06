@@ -3,5 +3,5 @@ export interface WindFarm {
     description: string;
     timezone: string;
     location: string;
-    capacityMW: number;
+    capacityMw: string;
 }

@@ -15,7 +15,7 @@
                 {{ windFarm.description }}
             </td>
             <td>
-                <p-tag [value]="windFarm.capacityMW + ' MW'" [severity]="'warn'"/>
+                <p-tag [value]="windFarm.capacityMw + ' MW'" [severity]="'warn'"/>
             </td>
             <td>
                 {{ windFarm.location }}
@@ -51,7 +51,7 @@
             </div>
             <p-divider></p-divider>
             <div>
-                <p-tag [value]="openWindFarm?.capacityMW + ' MW'" [severity]="'warn'"/>
+                <p-tag [value]="openWindFarm?.capacityMw + ' MW'" [severity]="'warn'"/>
                 Maximum farm capacity
             </div>
         </div>
@@ -77,9 +77,8 @@
         <ng-template #body let-electricityProduction>
             <tr>
                 <td>{{ electricityProduction.timestamp }}</td>
-                <!--                    | date: 'hh:mm:ss a dd/MM/yyyy ' }}</td>-->
                 <td>{{ electricityProduction.electricity_produced_mw }} MW</td>
-                <td>{{ electricityProduction.capacity_factor | number }}</td>
+                <td>{{ electricityProduction.capacity_factor }}</td>
             </tr>
         </ng-template>
     </p-table>
