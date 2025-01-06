@@ -92,6 +92,22 @@ The project uses **PostgreSQL** as its database for storing wind farm data and s
 4. **Access the Application**:
    Open your browser and navigate to [http://localhost:4200/](http://localhost:4200/).
 
+--- 
+
+## Edge cases
+1. No Data for the Specified Time Range
+   - It makes it impossible to calculate the capacity factor, which could confuse the user.
+2. Zero Production
+   - The wind farm did not produce any electricity during the specified time range (e.g., due to no wind or turbine malfunction).
+3. Corrupted or Unrealistic Values in the Database
+   - Meter readings are corrupted or unrealistic (e.g., negative values or values exceeding the farm's maximum capacity).
+4. Downtime Periods
+   - The wind farm was offline due to maintenance or failures during part of the specified time range.
+5. Production Exceeding Maximum Capacity
+   - Meter readings indicate production higher than the theoretical maximum (e.g., due to sensor errors).
+6.  Incomplete Data in the Database 
+     - Some hourly readings are missing for the specified time range.
+
 ---
 
 ## Deployment
