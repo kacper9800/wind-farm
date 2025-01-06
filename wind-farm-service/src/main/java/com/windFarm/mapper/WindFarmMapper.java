@@ -15,7 +15,9 @@ public class WindFarmMapper {
         dto.setDescription(entity.getDescription());
         dto.setTimezone(entity.getTimezone());
         dto.setLocation(entity.getLocation());
-        dto.setCapacityMW(entity.getCapacityMW());
+        if (entity.getCapacityMW() != null) {
+            dto.setCapacityMw(entity.getCapacityMW().toString());
+        }
         return dto;
     }
 
@@ -28,7 +30,9 @@ public class WindFarmMapper {
         entity.setDescription(dto.getDescription());
         entity.setTimezone(dto.getTimezone());
         entity.setLocation(dto.getLocation());
-        entity.setCapacityMW(dto.getCapacityMW());
+        if (dto.getCapacityMw() != null) {
+            entity.setCapacityMW(Double.valueOf(dto.getCapacityMw()));
+        }
         return entity;
     }
 

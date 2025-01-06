@@ -39,7 +39,7 @@ class WindFarmMapperTest {
         assertThat(dto.getDescription()).isEqualTo("Wind farm description");
         assertThat(dto.getTimezone()).isEqualTo("Europe/Warsaw");
         assertThat(dto.getLocation()).isEqualTo("Poland");
-        assertThat(dto.getCapacityMW()).isEqualTo(100.0);
+        assertThat(dto.getCapacityMw()).isEqualTo("100.0");
     }
 
     @Test
@@ -56,7 +56,7 @@ class WindFarmMapperTest {
         dto.setDescription("Wind farm description");
         dto.setTimezone("Europe/Warsaw");
         dto.setLocation("Poland");
-        dto.setCapacityMW(100.0);
+        dto.setCapacityMw("100.0");
 
         WindFarm entity = mapper.toEntity(dto);
 

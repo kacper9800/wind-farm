@@ -8,5 +8,5 @@ public class WindFarmDto {
     String description;
     String timezone;
     String location;
-    double capacityMW;
+    String capacityMw;
 }

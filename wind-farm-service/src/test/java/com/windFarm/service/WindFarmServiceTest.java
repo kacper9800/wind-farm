@@ -1,5 +1,6 @@
 package com.windFarm.service;
 
+import com.windFarm.dto.ElectricityProductionDto;
 import com.windFarm.dto.WindFarmDto;
 import com.windFarm.entity.WindFarm;
 import com.windFarm.mapper.WindFarmMapper;
@@ -21,10 +22,10 @@ import static org.mockito.Mockito.*;
 class WindFarmServiceTest {
 
     @Mock
-    private WindFarmRepository repository;
+    private WindFarmMapper windFarmMapper;
 
     @Mock
-    private WindFarmMapper windFarmMapper;
+    private WindFarmRepository repository;
 
     @InjectMocks
     private WindFarmService service;
@@ -86,17 +87,25 @@ class WindFarmServiceTest {
     @Test
     void testCreateWindFarm() {
         WindFarmDto dto = new WindFarmDto();
-        dto.setId(1L);
+        dto.setDescription("Wind farm in Poland");
         dto.setLocation("50,99 34,88");
+        dto.setCapacityMw("2.4");
+        dto.setTimezone("Europe/Warsaw");
 
-        WindFarm windFarm = new WindFarm();
-        windFarm.setId(1L);
-        windFarm.setLocation("50,99 34,88");
+        WindFarm entity = new WindFarm();
+        entity.setId(1L);
+        entity.setDescription("Wind farm in Poland");
+        entity.setLocation("50,99 34,88");
+        entity.setCapacityMW(2.4);
+        entity.setTimezone("Europe/Warsaw");
 
-        when(windFarmMapper.toEntity(dto)).thenReturn(windFarm);
+        when(windFarmMapper.toEntity(dto)).thenReturn(entity);
+        when(repository.save(entity)).thenReturn(entity);
 
-        service.createWindFarm(dto);
+        WindFarmDto result = service.createWindFarm(dto);
 
-        verify(repository, times(1)).save(windFarm);
+        assertNotNull(result);
+        assertEquals(1L, result.getId());
+        verify(repository, times(1)).save(entity);
     }
 }

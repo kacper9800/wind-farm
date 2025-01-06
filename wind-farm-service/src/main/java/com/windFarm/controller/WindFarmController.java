@@ -1,7 +1,5 @@
 package com.windFarm.controller;
 
-import com.windFarm.dto.ElectricityProductionDto;
-import com.windFarm.dto.ElectricityProductionFilterDto;
 import com.windFarm.dto.WindFarmDto;
 import com.windFarm.service.WindFarmService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -10,6 +8,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -72,7 +72,14 @@ public class WindFarmController {
                     @ApiResponse(responseCode = "500", description = "Internal server error")
             }
     )
-    public void createWindFarm(@RequestBody WindFarmDto windFarmDto) {
-        this.windFarmService.createWindFarm(windFarmDto);
+    public ResponseEntity<WindFarmDto> createWindFarm(
+            @RequestBody(
+                    description = "Details of the wind farm entry to be created",
+                    required = true,
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = WindFarmDto.class)))
+            @org.springframework.web.bind.annotation.RequestBody WindFarmDto windFarmDto) {
+        WindFarmDto createdWindFarm = this.windFarmService.createWindFarm(windFarmDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdWindFarm);
     }
 }

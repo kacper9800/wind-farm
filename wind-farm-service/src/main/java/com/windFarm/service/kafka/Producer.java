@@ -5,9 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.kafka.support.SendResult;
-
-import java.util.concurrent.CompletableFuture;
 
 @Service
 public class Producer {

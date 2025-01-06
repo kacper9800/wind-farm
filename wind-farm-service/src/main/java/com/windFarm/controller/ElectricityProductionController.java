@@ -13,7 +13,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -86,7 +85,7 @@ public class ElectricityProductionController {
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     public ResponseEntity<ElectricityProductionDto> createElectricityProduction(
-            @Validated @RequestBody(
+            @RequestBody(
                     description = "Details of the electricity production entry to be created",
                     required = true,
                     content = @Content(mediaType = "application/json",

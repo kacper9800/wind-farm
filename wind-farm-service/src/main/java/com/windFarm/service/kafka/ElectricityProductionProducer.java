@@ -35,7 +35,7 @@ public class ElectricityProductionProducer {
         for (WindFarmDto farm : windFarms) {
             LocalDateTime timestamp = LocalDateTime.now();
             String key = prepareKey(farm.getId(), timestamp);
-            String value = prepareValue(farm.getId(), farm.getCapacityMW(), timestamp);
+            String value = prepareValue(farm.getId(), farm.getCapacityMw(), timestamp);
             this.producer.sendMessage(TOPIC, key, value);
             logger.info("Produced message to topic {} with key {} and value {}", TOPIC, key, value);
         }
@@ -45,8 +45,9 @@ public class ElectricityProductionProducer {
         return String.valueOf(windFarmId).concat(" - ").concat(timestamp.toString());
     }
 
-    private String prepareValue(Long windFarmId, double capacityMW, LocalDateTime timestamp) {
-        double randomProducedElectricityMWValue = ThreadLocalRandom.current().nextDouble(0, capacityMW);
+    private String prepareValue(Long windFarmId, String capacityMW, LocalDateTime timestamp) {
+        double capacity = Double.parseDouble(capacityMW);
+        double randomProducedElectricityMWValue = ThreadLocalRandom.current().nextDouble(0, capacity);
         JsonNodeFactory factory = JsonNodeFactory.instance;
         ObjectNode json = factory.objectNode();
 

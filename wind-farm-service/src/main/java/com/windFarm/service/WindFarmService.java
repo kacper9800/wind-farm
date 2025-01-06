@@ -1,21 +1,13 @@
 package com.windFarm.service;
 
-import com.windFarm.dto.ElectricityProductionDto;
-import com.windFarm.dto.ElectricityProductionFilterDto;
 import com.windFarm.dto.WindFarmDto;
-import com.windFarm.entity.ElectricityProduction;
 import com.windFarm.entity.WindFarm;
 import com.windFarm.mapper.ElectricityProductionMapper;
 import com.windFarm.mapper.WindFarmMapper;
 import com.windFarm.repository.WindFarmRepository;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -38,9 +30,11 @@ public class WindFarmService {
                 .orElseThrow(() -> new EntityNotFoundException("WindFarm with id " + id + " not found"));
     }
 
-    public void createWindFarm(WindFarmDto dto) {
-        WindFarm windFarm = windFarmMapper.toEntity(dto);
-        repository.save(windFarm);
+    public WindFarmDto createWindFarm(WindFarmDto windFarmDto) {
+        WindFarm windFarm = windFarmMapper.toEntity(windFarmDto);
+        WindFarm savedWindFarm = repository.save(windFarm);
+        windFarmDto.setId(savedWindFarm.getId());
+        return windFarmDto;
     }
 
 }
