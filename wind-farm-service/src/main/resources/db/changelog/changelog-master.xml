@@ -43,16 +43,27 @@
                                  referencedTableName="wind_farm"
                                  referencedColumnNames="id"/>
     </changeSet>
-<!--    <changeSet id="2" author="kacper9800">-->
-<!--        <createTable tableName="timezones">-->
-<!--            <column name="id" type="bigint" autoIncrement="true">-->
-<!--                <constraints primaryKey="true"/>-->
-<!--            </column>-->
-<!--            <column name="timezone" type="VARCHAR(255)"/>-->
-<!--        </createTable>-->
-<!--        <insert tableName="timezones">-->
-<!--            <column name="timezone" value=""/>-->
-<!--            <column name="timezone" value=""/>-->
-<!--        </insert>-->
-<!--    </changeSet>-->
+    <changeSet id="2" author="kacper9800">
+        <insert tableName="wind_farm">
+            <column name="id" value="1"/>
+            <column name="capacity_mw" value="8"/>
+            <column name="description" value="Wind farm in Germany"/>
+            <column name="timezone" value="Europe/Berlin"/>
+            <column name="location" value="54.28 12.22"/>
+        </insert>
+        <insert tableName="wind_farm">
+            <column name="id" value="2"/>
+            <column name="capacity_mw" value="10"/>
+            <column name="description" value="Wind farm in USA (New York)"/>
+            <column name="timezone" value="America/New_York"/>
+            <column name="location" value="40.57 -74.07"/>
+        </insert>
+        <insert tableName="wind_farm">
+            <column name="id" value="3"/>
+            <column name="capacity_mw" value="15"/>
+            <column name="description" value="Wind farm in Australia"/>
+            <column name="timezone" value="Australia/Sydney"/>
+            <column name="location" value="-34.10 151.15"/>
+        </insert>
+    </changeSet>
 </databaseChangeLog>

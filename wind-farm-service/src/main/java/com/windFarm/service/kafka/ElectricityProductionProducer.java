@@ -29,7 +29,7 @@ public class ElectricityProductionProducer {
         this.windFarmService = windFarmService;
     }
 
-    @Scheduled(cron = "0 59 * * * *")
+    @Scheduled(cron = "0 * * * * *") // producing messages every minute
     public void produceElectricity() {
         List<WindFarmDto> windFarms = windFarmService.getAllWindFarms();
         for (WindFarmDto farm : windFarms) {
