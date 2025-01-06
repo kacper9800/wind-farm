@@ -23,7 +23,6 @@ class WindFarmApplicationTests {
         System.setProperty("DB_PASSWORD", postgreSQLContainer.getPassword());
     }
 
-
     @Test
     void contextLoads() {
     }
