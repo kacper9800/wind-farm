@@ -1,8 +1,6 @@
 package com.windFarm.controller;
 
-import com.windFarm.dto.ElectricityProductionDto;
 import com.windFarm.dto.WindFarmDto;
-import com.windFarm.entity.ElectricityProduction;
 import com.windFarm.entity.WindFarm;
 import com.windFarm.repository.ElectricityProductionRepository;
 import com.windFarm.repository.WindFarmRepository;
@@ -18,9 +16,6 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
-
-import java.time.LocalDateTime;
-import java.util.List;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;

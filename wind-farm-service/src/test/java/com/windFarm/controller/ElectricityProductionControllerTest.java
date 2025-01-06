@@ -1,9 +1,5 @@
 package com.windFarm.controller;
 
-import static io.restassured.RestAssured.given;
-import static org.awaitility.Awaitility.await;
-import static org.hamcrest.Matchers.hasSize;
-
 import com.windFarm.dto.ElectricityProductionDto;
 import com.windFarm.entity.ElectricityProduction;
 import com.windFarm.entity.WindFarm;
@@ -11,14 +7,6 @@ import com.windFarm.repository.ElectricityProductionRepository;
 import com.windFarm.repository.WindFarmRepository;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.TimeUnit;
-
-import jakarta.transaction.Transactional;
-import org.junit.Before;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,12 +14,16 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
-
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
