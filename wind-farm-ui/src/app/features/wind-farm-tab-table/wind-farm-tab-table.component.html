@@ -126,6 +126,7 @@
                 <input pInputText id="location" formControlName="location" autocomplete="off"/>
                 <label for="location">Location</label>
             </p-floatlabel>
+            <small id="location-help">Format: (longitude latitude)<br> (e.g. 12,3456 56,7890)</small>
             <hr>
             <p-button type="submit" [disabled]="windFarmForm.invalid" (onClick)="submitWindFarmForm()">Submit</p-button>
         </div>
